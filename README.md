@@ -7,7 +7,9 @@ A simple distributed application running across multiple Docker containers.
 
 # a) Without docker compose
 1.Build container images worker, voting , result using DOCKERFILE in repo and name them worker,voting-app,result-app.
+
 2.Pull the docker images of redis and postgres:9.4
+
 3.Run following commands to run the container images and link them.
 ```shell
   docker run -d --name=redis redis
@@ -20,9 +22,12 @@ A simple distributed application running across multiple Docker containers.
 
 # b) With docker compose version 2
 1. Run
+```shell
    sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
    sudo chmod +x /usr/local/bin/docker-compose
-2. (optional) Build container images worker, voting , result using DOCKERFILE in repo and name them worker,voting-app,result-app.
+```
+3. (optional) Build container images worker, voting , result using DOCKERFILE in repo and name them worker,voting-app,result-app.
+4. 
 3.Create docker-compose.yml with below contents.
 ```shell
   redis:
@@ -53,9 +58,12 @@ A simple distributed application running across multiple Docker containers.
 # c) With docker compose version 3
 Refer -> https://docs.docker.com/compose/compose-file/compose-file-v3/
 1. Run
+```shell
    sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
    sudo chmod +x /usr/local/bin/docker-compose
+```
 2. (optional) Build container images worker, voting , result using DOCKERFILE in repo and name them worker,voting-app,result-app.
+
 3.Create docker-compose.yml with below contents.
 ```shell
 version:"3"
