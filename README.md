@@ -2,6 +2,78 @@
 
 A simple distributed application running across multiple Docker containers.
 
+## Steps
+1.In any VM -> Install docker and clone this repo.
+
+# a) Without docker compose
+1.Build container images worker, voting , result using DOCKERFILE in repo and name them worker,voting-app,result-app.
+2.Pull the docker images of redis and postgres:9.4
+3.Run following commands to run the container images and link them.
+  docker run -d --name=redis redis
+  docker run -d --name=db postgres:9.4
+  docker run -d --name=vote -p 5000:80 --link redis:redis voting-app
+  docker run -d --name=result -p 5001=80 --link db:db result-app
+  docker run -d --name=worker --link db:db --link redis:redis worker
+4.View the voting app at PORT 5000 and result at PORT 5001.
+
+# b) With docker compose version 2
+1. Run
+   sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+   sudo chmod +x /usr/local/bin/docker-compose
+2. (optional) Build container images worker, voting , result using DOCKERFILE in repo and name them worker,voting-app,result-app.
+3.Create docker-compose.yml with below contents.
+  
+  redis:
+      image:redis
+  db:
+      image:postgres:9.4
+  vote:
+     image:voting-app
+     parts:
+         -5000:80
+     links:
+         -redis
+  result:
+     image:result-app
+     parts:
+         -5001:80
+     links:
+         -db
+  worker:
+     image:worker-app
+     links:
+         -db
+         -redis
+4. RUN docker compose up
+5. View the voting app at PORT 5000 and result at PORT 5001.
+
+# c) With docker compose version 3
+Refer -> https://docs.docker.com/compose/compose-file/compose-file-v3/
+1. Run
+   sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+   sudo chmod +x /usr/local/bin/docker-compose
+2. (optional) Build container images worker, voting , result using DOCKERFILE in repo and name them worker,voting-app,result-app.
+3.Create docker-compose.yml with below contents.
+version:"3"
+services:  
+  redis:
+      image:redis
+  db:
+      image:postgres:9.4
+  vote:
+     image:voting-app
+     parts:
+         -5000:80
+  result:
+     image:result-app
+     parts:
+         -5001:80
+  worker:
+     image:worker-app
+     
+4. RUN docker compose up
+5. View the voting app at PORT 5000 and result at PORT 5001.    
+
 ## Getting started
 
 Download [Docker Desktop](https://www.docker.com/products/docker-desktop) for Mac or Windows. [Docker Compose](https://docs.docker.com/compose) will be automatically installed. On Linux, make sure you have the latest version of [Compose](https://docs.docker.com/compose/install/).
