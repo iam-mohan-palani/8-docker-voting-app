@@ -9,11 +9,13 @@ A simple distributed application running across multiple Docker containers.
 1.Build container images worker, voting , result using DOCKERFILE in repo and name them worker,voting-app,result-app.
 2.Pull the docker images of redis and postgres:9.4
 3.Run following commands to run the container images and link them.
+```shell
   docker run -d --name=redis redis
   docker run -d --name=db postgres:9.4
   docker run -d --name=vote -p 5000:80 --link redis:redis voting-app
   docker run -d --name=result -p 5001=80 --link db:db result-app
   docker run -d --name=worker --link db:db --link redis:redis worker
+```
 4.View the voting app at PORT 5000 and result at PORT 5001.
 
 # b) With docker compose version 2
@@ -22,7 +24,7 @@ A simple distributed application running across multiple Docker containers.
    sudo chmod +x /usr/local/bin/docker-compose
 2. (optional) Build container images worker, voting , result using DOCKERFILE in repo and name them worker,voting-app,result-app.
 3.Create docker-compose.yml with below contents.
-  ```shell
+```shell
   redis:
       image:redis
   db:
@@ -55,7 +57,7 @@ Refer -> https://docs.docker.com/compose/compose-file/compose-file-v3/
    sudo chmod +x /usr/local/bin/docker-compose
 2. (optional) Build container images worker, voting , result using DOCKERFILE in repo and name them worker,voting-app,result-app.
 3.Create docker-compose.yml with below contents.
-  ```shell
+```shell
 version:"3"
 services:  
   redis:
@@ -72,7 +74,7 @@ services:
          -5001:80
   worker:
      image:worker-app
-    ```
+```
 4. RUN docker compose up
 5. View the voting app at PORT 5000 and result at PORT 5001.    
 
