@@ -27,7 +27,7 @@ A simple distributed application running across multiple Docker containers.
    sudo chmod +x /usr/local/bin/docker-compose
 ```
 3. (optional) Build container images worker, voting , result using DOCKERFILE in repo and name them worker,voting-app,result-app.
-4. 
+   
 3.Create docker-compose.yml with below contents.
 ```shell
   redis:
