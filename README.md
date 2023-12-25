@@ -22,7 +22,7 @@ A simple distributed application running across multiple Docker containers.
    sudo chmod +x /usr/local/bin/docker-compose
 2. (optional) Build container images worker, voting , result using DOCKERFILE in repo and name them worker,voting-app,result-app.
 3.Create docker-compose.yml with below contents.
-  
+  ```shell
   redis:
       image:redis
   db:
@@ -44,6 +44,7 @@ A simple distributed application running across multiple Docker containers.
      links:
          -db
          -redis
+```
 4. RUN docker compose up
 5. View the voting app at PORT 5000 and result at PORT 5001.
 
@@ -54,6 +55,7 @@ Refer -> https://docs.docker.com/compose/compose-file/compose-file-v3/
    sudo chmod +x /usr/local/bin/docker-compose
 2. (optional) Build container images worker, voting , result using DOCKERFILE in repo and name them worker,voting-app,result-app.
 3.Create docker-compose.yml with below contents.
+  ```shell
 version:"3"
 services:  
   redis:
@@ -70,7 +72,7 @@ services:
          -5001:80
   worker:
      image:worker-app
-     
+    ```
 4. RUN docker compose up
 5. View the voting app at PORT 5000 and result at PORT 5001.    
 
